@@ -32,12 +32,16 @@ from selenium import webdriver
 
 class Parser:
 
-    def parser_writeHTML(URL: str):
+
+    def __init__(self, url:str):
+        self.url=url
+
+    def parser_writeHTML(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--disable-blink-features=AutomationControlled")
         s = Service(executable_path="./lib/chromedriver")
         browser = webdriver.Chrome(options=options, service=s)
-        browser.get(URL)
+        browser.get(format(self.url))
         requiredHtml = browser.page_source
         with open("myfile.html", "a") as f:
             f.write(requiredHtml)
@@ -45,7 +49,8 @@ class Parser:
 
 
 
-p1 = Parser.parser_writeHTML('https://www.wildberries.ru/catalog/18256273/detail.aspx?targetUrl=MI')
+p1 = Parser('https://www.ivi.ru/animation')
+p1.parser_writeHTML()
 
 
 
